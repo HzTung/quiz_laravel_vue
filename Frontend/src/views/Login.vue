@@ -4,14 +4,8 @@
             class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1"
         >
             <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-                <div>
-                    <img
-                        src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-                        class="w-32 mx-auto"
-                    />
-                </div>
-                <div class="mt-12 flex flex-col items-center">
-                    <h1 class="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
+                <div class="flex flex-col items-center">
+                    <h1 class="text-2xl xl:text-3xl font-extrabold">Login</h1>
                     <div class="w-full flex-1 mt-8">
                         <div class="flex flex-col items-center">
                             <button
@@ -97,7 +91,7 @@
                                     <circle cx="8.5" cy="7" r="4" />
                                     <path d="M20 8v6M23 11h-6" />
                                 </svg>
-                                <span class="ml-3"> Sign Up </span>
+                                <span class="ml-3"> Login </span>
                             </button>
                             <p class="mt-6 text-xs text-gray-600 text-center">
                                 I agree to abide by templatana's
@@ -132,6 +126,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import store from "../store";
+import router from "../router";
 
 const user = {
     email: "",
@@ -140,6 +136,11 @@ const user = {
 };
 
 function login() {
-    console.log(user.email);
+    store
+        .dispatch("login", user)
+        .then((result) => {
+            router.push({ name: "home" });
+        })
+        .catch((err) => {});
 }
 </script>

@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.3",
     "vue": "^3.4.35",
     "vue-router": "^4.0.13",
+    "vueperslides": "^3.5.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
