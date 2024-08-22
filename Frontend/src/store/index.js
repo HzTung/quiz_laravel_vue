@@ -5,7 +5,9 @@ import * as mutations from "./mutations";
 
 const store = createStore({
     state,
-    getters: {},
+    getters: {
+        isAuthenticated: (state) => !!state.user.token,
+    },
     actions,
     mutations,
 });

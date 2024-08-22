@@ -2,6 +2,10 @@ export function setUser(state, user) {
     state.user.data = user;
 }
 
+export function setSubject(state, data) {
+    state.subjects.data = data;
+}
+
 export function setToken(state, token) {
     state.user.token = token;
     if (token) {

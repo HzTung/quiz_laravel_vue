@@ -125,14 +125,12 @@
     </div>
 </template>
 <script setup>
-import { ref } from "vue";
 import store from "../store";
 import router from "../router";
 
 const user = {
     email: "",
     password: "",
-    remember: false,
 };
 
 function login() {
@@ -141,6 +139,8 @@ function login() {
         .then((result) => {
             router.push({ name: "home" });
         })
-        .catch((err) => {});
+        .catch((err) => {
+            console.log(err);
+        });
 }
 </script>

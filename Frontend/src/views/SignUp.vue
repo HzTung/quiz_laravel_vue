@@ -139,14 +139,27 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import store from "../store";
+import router from "../router";
 
 const user = {
+    name: "",
     email: "",
     password: "",
-    remember: false,
+    confirmPassword: "",
 };
 
 function signup() {
-    console.log(user.email);
+    if (user.password !== user.confirmPassword) {
+    } else {
+        store
+            .dispatch("signup", user)
+            .then((result) => {
+                router.push({ name: "home" });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 }
 </script>

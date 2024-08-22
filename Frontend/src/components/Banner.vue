@@ -1,6 +1,10 @@
 <template>
     <div class="max-h-full">
-        <vueper-slides :autoplay="2000" :visible-slides="1">
+        <vueper-slides
+            :autoplay="true"
+            :visible-slides="1"
+            fixed-height="500px"
+        >
             <vueper-slide
                 v-for="(slide, i) in slides"
                 :key="i"
@@ -35,3 +39,4 @@ const slides = [
     },
 ];
 </script>
+<style></style>
