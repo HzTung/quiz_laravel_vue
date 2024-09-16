@@ -2,82 +2,52 @@
 
 namespace App\Http\Controllers\Api;
 
+use auth;
 use Illuminate\Http\Request;
+use Workbench\App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\authRequest\LoginRequest;
+use App\Http\Requests\authRequest\RegisterRequest;
+use  App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $authService;
+    public function __construct(AuthService $authService)
     {
-        //
+        $this->authService = $authService;
+        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+    public function login(LoginRequest $request)
+    {
+        return $this->authService->login($request->validated());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function register(RegisterRequest $request)
     {
-        //
+        return $this->authService->register($request->validated());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function logout()
     {
-        //
+        auth()->logout();
+
+        return response()->json(['message' => 'User successfully signed out']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function refresh()
     {
-        //
+        return $this->authService->refresh();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    protected function createNewToken($token)
     {
-        //
-    }
-
-
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-        $credentials = $request->only('email', 'password');
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Login Fail'], 401);
-        }
-
-        $user = $request->user();
-        $user->tokens()->where('name', 'token')->delete();
-        $token = $user->createToken('token')->plainTextToken;
         return response()->json([
-            'token' => $token,
-            'message' => 'Login successfully'
-        ], 201);
-    }
-
-    public function logout(Request $request)
-    {
-        $request->user()->tokens()->delete();
-
-        return response()->json(['message' => 'Logged out successfully']);
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
     }
 }

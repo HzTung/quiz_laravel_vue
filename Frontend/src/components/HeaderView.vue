@@ -138,7 +138,7 @@ const isAuthenticated = computed(() => store.getters.isAuthenticated);
 
 function logout() {
     store.dispatch("logout").then((msg) => {
-        router.push({ name: "home" });
+        router.push({ path: "login" });
     });
 }
 </script>

@@ -21,7 +21,9 @@
                     </button>
                 </div>
                 <div class="basis-1/2 p-2">
-                    <div class="bg-white rounded-lg p-3">
+                    <div
+                        class="bg-[#38bdf8] rounded-lg p-3 shadow hover:shadow-2xl hover:shadow-white transition ease-in-out"
+                    >
                         <img
                             src="/img/OIP.jpg"
                             alt=""
@@ -165,19 +167,113 @@
                 ultrices amet, ridiculus senectus at.</span
             >
         </div>
-        <div class="grid grid-cols-4 gap-4 mt-20">
+        <div class="flex flex-row space-x-4 justify-center pt-10">
+            <button
+                @click="toggleContent('section1')"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Lập trình Android
+            </button>
+            <button
+                @click="toggleContent('section2')"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Lập trình Web
+            </button>
+            <button
+                @click="toggleContent('section3')"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Lập trình DotNet
+            </button>
+        </div>
+        <div
+            v-if="isContentVisible.section1"
+            class="grid grid-cols-4 gap-4 mt-20 wow animate__animated animate__fadeInUp"
+        >
             <div
-                class="w-11/12 border border-slate-950 rounded-lg shadow hover:shadow-lg relative"
-                v-for="(item, i) in subjects"
+                class="w-12/12 p-4 border border-slate-950 rounded-lg shadow hover:shadow-lg relative"
+                v-for="(item, i) in subjects.filter((item) => item.row === 1)"
                 :key="item.Id"
             >
                 <img
-                    class="w-full rounded-lg"
+                    class="w-full rounded-lg p-8"
                     :src="`/img/logoCourse/${item.Logo}`"
                     alt=""
                 />
-                <div class="p-4 flex flex-col space-y-3 mt-5">
-                    <h2 class="text-2xl font-bold text-wrap">
+                <div class="flex flex-col space-y-3 mt-5">
+                    <h2 class="text-2l font-bold text-wrap">
+                        {{ item.Name }}
+                    </h2>
+                    <div class="flex flex-row space-x-3">
+                        <div class="flex flex-row items-center">
+                            <div>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="15"
+                                    width="15"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="mx-2">10 Questions</p>
+                        </div>
+                        |
+                        <div class="flex flex-row items-center">
+                            <div>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="15"
+                                    width="15"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="mx-2">15 minutes</p>
+                        </div>
+                    </div>
+                </div>
+                <router-link :to="{ name: 'quiz', params: { id: item.Id } }">
+                    <button
+                        class="absolute right-3 top-[60%] py-2 px-5 text-white font-semibold rounded-full shadow-md hover:bg-[#fef08a] focus:outline-none focus:ring focus:blue-400 focus:ring-opacity-75"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="30"
+                            width="30"
+                            viewBox="0 0 448 512"
+                        >
+                            <path
+                                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                            />
+                        </svg>
+                    </button>
+                </router-link>
+            </div>
+        </div>
+
+        <div
+            v-if="isContentVisible.section2"
+            class="grid grid-cols-4 gap-4 mt-20 wow animate__animated animate__fadeInUp"
+        >
+            <div
+                class="w-12/12 p-4 border border-slate-950 rounded-lg shadow hover:shadow-lg relative"
+                v-for="(item, i) in subjects.filter((item) => item.row === 2)"
+                :key="item.Id"
+            >
+                <img
+                    class="w-full rounded-lg p-8"
+                    :src="`/img/logoCourse/${item.Logo}`"
+                    alt=""
+                />
+                <div class="flex flex-col space-y-3 mt-5">
+                    <h2 class="text-2l font-bold text-wrap">
                         {{ item.Name }}
                     </h2>
                     <div class="flex flex-row space-x-3">
@@ -215,7 +311,75 @@
                     </div>
                 </div>
                 <button
-                    class="absolute right-3 top-[75%] py-2 px-5 text-white font-semibold rounded-full shadow-md hover:bg-[#fef08a] focus:outline-none focus:ring focus:blue-400 focus:ring-opacity-75"
+                    class="absolute right-3 top-[60%] py-2 px-5 text-white font-semibold rounded-full shadow-md hover:bg-[#fef08a] focus:outline-none focus:ring focus:blue-400 focus:ring-opacity-75"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="30"
+                        width="30"
+                        viewBox="0 0 448 512"
+                    >
+                        <path
+                            d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div
+            v-if="isContentVisible.section3"
+            class="grid grid-cols-4 gap-4 mt-20 wow animate__animated animate__fadeInUp"
+        >
+            <div
+                class="w-12/12 p-4 border border-slate-950 rounded-lg shadow hover:shadow-lg relative"
+                v-for="(item, i) in subjects.filter((item) => item.row === 3)"
+                :key="item.Id"
+            >
+                <img
+                    class="w-full rounded-lg p-8"
+                    :src="`/img/logoCourse/${item.Logo}`"
+                    alt=""
+                />
+                <div class="flex flex-col space-y-3 mt-5">
+                    <h2 class="text-2l font-bold text-wrap">
+                        {{ item.Name }}
+                    </h2>
+                    <div class="flex flex-row space-x-3">
+                        <div class="flex flex-row items-center">
+                            <div>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="15"
+                                    width="15"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="mx-2">10 Questions</p>
+                        </div>
+                        |
+                        <div class="flex flex-row items-center">
+                            <div>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="15"
+                                    width="15"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="mx-2">15 minutes</p>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="absolute right-3 top-[60%] py-2 px-5 text-white font-semibold rounded-full shadow-md hover:bg-[#fef08a] focus:outline-none focus:ring focus:blue-400 focus:ring-opacity-75"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -256,9 +420,24 @@ import store from "../store";
 import { computed } from "vue";
 import "vueperslides/dist/vueperslides.css";
 import { VueperSlides, VueperSlide } from "vueperslides";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const parallax = ref(0.3);
 const parallaxFixedContent = ref(false);
+
+const isContentVisible = ref({
+    section1: true,
+    section2: false,
+    section3: false,
+});
+
+const toggleContent = (section) => {
+    for (const key in isContentVisible.value) {
+        if (isContentVisible.value.hasOwnProperty(key)) {
+            isContentVisible.value[key] = false;
+        }
+    }
+    isContentVisible.value[section] = !isContentVisible.value[section];
+};
 
 const slides = ref([
     {
@@ -278,6 +457,4 @@ store
     .catch((err) => {
         console.log(err);
     });
-
-// subjects.value = subjectData;
 </script>
